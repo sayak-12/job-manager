@@ -1,4 +1,6 @@
-@import "tailwindcss";
+@layer theme, base, components, utilities;
+@import "tailwindcss/theme.css" layer(theme);
+@import "tailwindcss/utilities.css" layer(utilities);
 *{
     margin: 0;
     padding: 0;
@@ -10,6 +12,9 @@
 }
 .btn{
     @apply bg-red-400 hover:bg-red-600 px-3 py-2 rounded border-none text-white;
+}
+.btn-blue{
+    @apply bg-blue-400 hover:bg-blue-600 px-3 py-2 rounded border-none text-white;
 }
 h1{
     @apply text-3xl font-bold text-center my-2;
