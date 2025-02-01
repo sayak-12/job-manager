@@ -1,4 +1,4 @@
-
+<!-- 
 <script>
 export default {
   data(){
@@ -35,4 +35,17 @@ export default {
 h1 {
   color: red;
 }
-</style>
+</style> -->
+
+<script setup>
+import Navbar from '@/components/Navbar.vue';
+import Hero from '@/components/Hero.vue';
+import Homecards from './components/Homecards.vue';
+import jobListings from './components/jobListings.vue';
+</script>
+<template>
+  <Navbar/>
+  <Hero title="Vue Developer"/>
+  <Homecards/>
+  <jobListings :limit="5"/>
+</template>
