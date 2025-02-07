@@ -1,15 +1,32 @@
-import { createRouter, createWebHistory } from 'vue-router';
-import Home from '../views/Home.vue';
-import About from '../views/About.vue';
-
-const routes = [
-  { path: '/', component: Home },
-  { path: '/about', component: About },
-];
-
+import { createRouter, createWebHistory } from "vue-router";
+import Home from "@/views/Home.vue";
+import Jobs from "@/views/jobs.vue";
+import NotFound from "@/views/NotFound.vue";
+import Jobdetails from "@/views/jobdetails.vue";
 const router = createRouter({
-  history: createWebHistory(),
-  routes,
-});
+  history: createWebHistory(import.meta.env.BASE_URL),
+  routes: [
+    {
+      path: "/",
+      name: "home",
+      component: Home
+    },
+    {
+      path: "/jobs",
+      name: "jobs",
+      component: Jobs
+    },
+    {
+      path: "/jobs/:id",
+      name: "jobdetails",
+      component: Jobdetails
+    },
+    {
+      path: "/:catchAll(.*)",
+      name: "not-found",
+      component: NotFound
+    }
+  ]
+})
 
-export default router; // ✅ Ensure you export it as default
+export default router;

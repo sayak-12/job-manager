@@ -1,13 +1,26 @@
 <script setup>
     import jobData from '@/jobs.json';
-    import { ref, defineProps } from 'vue';
+    import { ref, defineProps, computed } from 'vue';
+    import { RouterLink } from 'vue-router';
     const jobs = ref(jobData);
+    const showFull = ref({});
     defineProps({
         limit : {
             type: Number,
-            default: 3
+            default: 6
         }
     })
+    const toggleFull = (jobID)=>{
+        showFull.value[jobID] = !showFull.value[jobID];
+    }
+    const truncateDesc = (desc)=>{
+      return desc.substring(0, 90) + '...';
+    }
+
+    const getDescription = computed(() => {
+    return (job) => showFull.value[job.id] ? job.description : truncateDesc(job.description);
+});
+    
 </script>
 <template>
     <section class="bg-green-50 px-4 py-10">
@@ -25,7 +38,12 @@
               </div>
 
               <div class="mb-5">
-                {{ job.description }}
+                {{ getDescription(job) }}
+                <a
+                  href="#"
+                  class="text-green-500 hover:underline"
+                  @click.prevent="toggleFull(job.id)"
+                  >{{ showFull[job.id] ? 'Read Less' : 'Read More' }}</a>
               </div>
 
               <h3 class="text-green-500 mb-2">{{ job.salary }}</h3>
@@ -37,12 +55,12 @@
                   <i class="fa-solid fa-location-dot text-lg"></i>
                   {{ job.location }}
                 </div>
-                <a
-                  href="job.html"
+                <RouterLink
+                  :to="'jobs/'+job.id"
                   class="h-[36px] bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded-lg text-center text-sm"
                 >
-                  Read More
-                </a>
+                  Read Details
+                </RouterLink>
               </div>
             </div>
           </div>
